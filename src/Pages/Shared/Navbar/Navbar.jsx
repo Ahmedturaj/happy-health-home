@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./nav.css";
 const Navbar = () => {
   const navOptions = (
@@ -64,7 +64,7 @@ const Navbar = () => {
           </ul>
         </div>
         <a
-          className="btn btn-ghost bg-transparent text-cyan-500 md:text-2xl font_grey"
+          className="btn btn-ghost  text-cyan-500 md:text-2xl font_grey"
           style={{ textShadow: "3px 4px 6px", backgroundColor: "transparent" }}
         >
           <img
@@ -80,12 +80,13 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <div className="">
-          <button
+          <Link
+            to={"/logIn"}
             className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500"
             style={{ transition: "all 1s" }}
           >
             LogIn
-          </button>
+          </Link>
         </div>
       </div>
     </div>
