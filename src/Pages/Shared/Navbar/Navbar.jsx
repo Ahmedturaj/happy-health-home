@@ -1,6 +1,41 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
+import "./nav.css";
 const Navbar = () => {
+  const navOptions = (
+    <>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-cyan-500  rounded-none" : "text-white rounded-none"
+          }
+          to={"/"}
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/services"}
+          className={({ isActive }) =>
+            isActive ? "text-cyan-500  rounded-none" : "text-white rounded-none"
+          }
+        >
+          Services
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/about"}
+          className={({ isActive }) =>
+            isActive ? "text-cyan-500  rounded-none" : "text-white rounded-none"
+          }
+        >
+          About
+        </NavLink>
+      </li>
+    </>
+  );
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -23,54 +58,35 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-4"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {navOptions}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a
+          className="btn btn-ghost bg-transparent text-cyan-500 md:text-2xl font_grey"
+          style={{ textShadow: "3px 4px 6px", backgroundColor: "transparent" }}
+        >
+          <img
+            src="../../../../public/istockphoto-471629610-612x612-removebg-preview.png"
+            alt=""
+            className="w-10"
+          />
+          Happy Health Home
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
+        <ul className="menu menu-horizontal px-1 gap-4">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <div className="">
+          <button
+            className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500"
+            style={{ transition: "all 1s" }}
+          >
+            LogIn
+          </button>
+        </div>
       </div>
     </div>
   );

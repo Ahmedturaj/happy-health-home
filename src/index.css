@@ -1,3 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Grey+Qo&family=Rajdhani:wght@300;400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font_grey {
+  font-family: "Grey Qo", cursive;
+}
+/* .button_hover {
+  overflow: hidden;
+}
+.button_hover:before {
+  content: "";
+  position: absolute;
+  height: 100px;
+  width: 20px;
+  background: cyan;
+  box-shadow: 0 0 10px cyan;
+  filter: blur(1px);
+  opacity: 0.9;
+  top: -30px;
+  transition: 0.7s;
+  transform: rotate(-20deg) translate(-60px);
+}
+
+.button_hover:hover:before {
+  transform: rotate(-20deg) translate(140px, 70px);
+} */
