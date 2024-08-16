@@ -1,11 +1,46 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const passwordConfirm = form.confirmPassword.value;
+    const image = form.image.value;
+
+    if (password.length < 6) {
+      toast.error("You have to put 6 character In Your Password");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      toast.error(
+        "You have to use at least one Uppercase character In Your Password"
+      );
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      toast.error(
+        "You have to use at least one lowercase character In Your Password"
+      );
+      return;
+    } else if (!/[0-9]/.test(password)) {
+      toast.error(
+        "You have to use at least one numeric character In Your Password"
+      );
+      return;
+    } else if (password !== passwordConfirm) {
+      toast.error("Password is not same");
+      return;
+    }
+    const userInfo = { name, image, email, password };
+    console.table(userInfo);
+  };
   return (
     <section className="p-5">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-        <form className="w-full max-w-md">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
           <div className="flex justify-center mx-auto">
             <img
               className="w-auto h-7 sm:h-8"
@@ -70,12 +105,7 @@ const SignUp = () => {
 
             <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-            <input
-              id="dropzone-file"
-              name="photo"
-              type="file"
-              className="hidden"
-            />
+            <input id="dropzone-file" name="image" type="url" className="" />
           </label>
 
           <div className="relative flex items-center mt-6">

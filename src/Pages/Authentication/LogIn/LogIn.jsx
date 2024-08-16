@@ -28,7 +28,7 @@ const LogIn = () => {
 
           <a
             href="#"
-            className="flex items-center justify-center mt-4 w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg hover:shadow-cyan-500"
+            className="flex items-center justify-center mt-4 w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
             style={{ transition: "all .5s" }}
           >
             <div className="px-4 py-2">
@@ -108,7 +108,10 @@ const LogIn = () => {
           </div>
 
           <div className="mt-6">
-            <button className="w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg hover:shadow-cyan-500">
+            <button
+              className="w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
+              style={{ transition: "all .5s" }}
+            >
               LogIn
             </button>
           </div>
@@ -118,7 +121,7 @@ const LogIn = () => {
 
             <Link
               to={"/signUp"}
-              className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
+              className="text-xs text-gray-500 uppercase dark:text-cyan-400 hover:underline"
             >
               or sign up
             </Link>
