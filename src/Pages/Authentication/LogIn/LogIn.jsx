@@ -1,7 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+import { FaStaffSnake } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const LogIn = () => {
+  const { logIn, googleLogIn, loading, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, " ", password);
+    logIn(email, password)
+      .then((result) => {
+        setUser(result.user);
+        navigate(location?.state ? location.state : "/");
+        e.target.reset();
+      })
+      .catch((error) => {
+        const errorMessage = error.message
+          .replace(/\)\./g, "")
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
+        toast.error(errorMessage);
+      });
+  };
+  const handleGoogle = (e) => {
+    e.preventDefault();
+    googleLogIn()
+      .then((result) => {
+        setUser(result.user);
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+      });
+  };
   return (
     <div className="p-5">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg lg:max-w-4xl">
@@ -26,8 +64,8 @@ const LogIn = () => {
             Welcome back!
           </p>
 
-          <a
-            href="#"
+          <button
+            onClick={handleGoogle}
             className="flex items-center justify-center mt-4 w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
             style={{ transition: "all .5s" }}
           >
@@ -53,9 +91,13 @@ const LogIn = () => {
             </div>
 
             <span className="w-5/6 px-4 py-3 font-bold text-center">
-              Sign in with Google
+              {loading ? (
+                <FaStaffSnake className="text-cyan-400 animate-pulse" />
+              ) : (
+                "Sign in with Google"
+              )}
             </span>
-          </a>
+          </button>
 
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
@@ -70,52 +112,55 @@ const LogIn = () => {
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
           </div>
 
-          <div className="mt-4">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-              htmlFor="LoggingEmailAddress"
-            >
-              Email Address
-            </label>
-            <input
-              id="LoggingEmailAddress"
-              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-              type="email"
-            />
-          </div>
-
-          <div className="mt-4">
-            <div className="flex justify-between">
+          <form onSubmit={handleLogIn}>
+            <div className="mt-4">
               <label
                 className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-                htmlFor="loggingPassword"
+                htmlFor="LoggingEmailAddress"
               >
-                Password
+                Email Address
               </label>
-              <a
-                href="#"
-                className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
-              >
-                Forget Password?
-              </a>
+              <input
+                id="LoggingEmailAddress"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+                type="email"
+                name="email"
+              />
             </div>
 
-            <input
-              id="loggingPassword"
-              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-              type="password"
-            />
-          </div>
+            <div className="mt-4">
+              <div className="flex justify-between">
+                <label
+                  className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+                  htmlFor="loggingPassword"
+                >
+                  Password
+                </label>
+                <a
+                  href="#"
+                  className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
+                >
+                  Forget Password?
+                </a>
+              </div>
 
-          <div className="mt-6">
-            <button
-              className="w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
-              style={{ transition: "all .5s" }}
-            >
-              LogIn
-            </button>
-          </div>
+              <input
+                id="loggingPassword"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+                type="password"
+                name="password"
+              />
+            </div>
 
+            <div className="mt-6">
+              <button
+                className="w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
+                style={{ transition: "all .5s" }}
+              >
+                LogIn
+              </button>
+            </div>
+          </form>
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 

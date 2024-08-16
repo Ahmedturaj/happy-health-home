@@ -4,7 +4,11 @@ import "./nav.css";
 import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 import { FaPlus } from "react-icons/fa";
 const Navbar = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, logOut } = useContext(AuthContext);
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logOut();
+  };
   const navOptions = (
     <>
       <li>
@@ -94,7 +98,10 @@ const Navbar = () => {
                   src={user.photoURL}
                   alt="User's Picture"
                 />
-                <button className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500">
+                <button
+                  onClick={handleLogout}
+                  className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500"
+                >
                   LogOut
                 </button>
               </div>
