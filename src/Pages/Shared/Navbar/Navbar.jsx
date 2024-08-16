@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./nav.css";
+import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+import { FaPlus } from "react-icons/fa";
 const Navbar = () => {
+  const { user, loading } = useContext(AuthContext);
   const navOptions = (
     <>
       <li>
@@ -79,15 +82,33 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 gap-4">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <div className="">
-          <Link
-            to={"/logIn"}
-            className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500"
-            style={{ transition: "all 1s" }}
-          >
-            LogIn
-          </Link>
-        </div>
+        {loading ? (
+          <FaPlus className="text-cyan-500 animate-spin" />
+        ) : (
+          <div className="">
+            {user ? (
+              <div className="flex justify-center gap-3 items-center">
+                <img
+                  className="w-12 rounded-full"
+                  title={user.displayName}
+                  src={user.photoURL}
+                  alt="User's Picture"
+                />
+                <button className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500">
+                  LogOut
+                </button>
+              </div>
+            ) : (
+              <Link
+                to={"/logIn"}
+                className="overflow-hidden button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg shadow-cyan-500"
+                style={{ transition: "all 1s" }}
+              >
+                LogIn
+              </Link>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

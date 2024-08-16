@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import { FaStaffSnake } from "react-icons/fa6";
 
 const SignUp = () => {
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+  const { signUp, setUser, loading, set } = useContext(AuthContext);
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -36,6 +41,25 @@ const SignUp = () => {
     }
     const userInfo = { name, image, email, password };
     console.table(userInfo);
+    signUp(name, image, email, password)
+      .then((result) => {
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: image,
+        });
+
+        setUser(result.user);
+        navigate(location?.state ? location.state : "/");
+
+        e.target.reset();
+      })
+      .catch((error) => {
+        const errorMessage = error.message
+          .replace(/\)\./g, "")
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
+        toast.error(errorMessage);
+      });
   };
   return (
     <section className="p-5">
@@ -191,7 +215,11 @@ const SignUp = () => {
               className="w-full button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500 hover:border-l hover:border-t shadow-lg hover:shadow-cyan-500"
               style={{ transition: "all .5s" }}
             >
-              Sign Up
+              {loading ? (
+                <FaStaffSnake className="text-cyan-400 animate-pulse" />
+              ) : (
+                "Sign Up"
+              )}
             </button>
 
             <div className="mt-6 text-center">
