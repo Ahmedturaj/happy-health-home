@@ -10,11 +10,11 @@ const Main = () => {
   console.log(location.pathname);
   return (
     <div>
-      <div className="">{noHeaderFooter || <Navbar />}</div>
-      <div className="min-h-[calc(100vh-290px)]">
+      {noHeaderFooter || <Navbar />}
+      <div className="pt-24 min-h-[calc(100vh-68px)]">
         <Outlet />
       </div>
-      <div className="">{noHeaderFooter || <Footer />}</div>
+      {noHeaderFooter || <Footer />}
     </div>
   );
 };
