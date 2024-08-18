@@ -23,12 +23,12 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to={"/services"}
+          to={"/medicines"}
           className={({ isActive }) =>
             isActive ? "text-cyan-500  rounded-none" : "text-white rounded-none"
           }
         >
-          Services
+          Medicine
         </NavLink>
       </li>
       <li>

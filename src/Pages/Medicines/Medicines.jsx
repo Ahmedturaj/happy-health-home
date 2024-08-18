@@ -69,17 +69,21 @@ const Medicines = () => {
   };
 
   return (
-    <div className="my-24 container mx-auto lg:ml-14">
+    <div className="my-24 container mx-auto w-11/12 lg:ml-14">
       <div className="flex justify-between mb-4">
         <input
           type="text"
           placeholder="Search by medicine name"
           value={searchTerm}
           onChange={handleSearch}
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full border-cyan-500 mb-14 max-w-xs"
         />
 
-        <select onChange={handleSortChange} className="select select-bordered">
+        <select
+          onChange={handleSortChange}
+          className="select select-bordered button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
+          style={{ transition: "all .5s" }}
+        >
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
           <option value="date-asc">Date Added: Oldest First</option>
@@ -97,7 +101,9 @@ const Medicines = () => {
               <div className="card-body">
                 <h2 className="card-title">
                   {item.medicineName}
-                  <div className="badge badge-secondary">{item.price} Tk</div>
+                  <div className="badge bg-cyan-500 text-black">
+                    {item.price} Tk
+                  </div>
                 </h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
                 <div className="card-actions justify-end">
@@ -117,7 +123,8 @@ const Medicines = () => {
       <div className="w-full flex items-center justify-center mt-14">
         <button
           onClick={prevPage}
-          className="btn btn-outline"
+          className="button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
+          style={{ transition: "all .5s" }}
           disabled={currentPage === 1}
         >
           Previous
@@ -127,7 +134,8 @@ const Medicines = () => {
         </span>
         <button
           onClick={nextPage}
-          className="btn btn-outline"
+          className="button_hover rounded-s-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
+          style={{ transition: "all .5s" }}
           disabled={currentPage === totalPages}
         >
           Next
