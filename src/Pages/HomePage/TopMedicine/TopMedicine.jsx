@@ -10,7 +10,7 @@ const TopMedicine = () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/medicine`);
         setData(res.data); // Set the data to state
-        console.log(res.data); // Log the data
+        // Log the data
       } catch (error) {
         console.error("There was an error fetching the data:", error);
       }
