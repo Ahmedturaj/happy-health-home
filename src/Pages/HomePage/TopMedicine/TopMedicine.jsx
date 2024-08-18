@@ -59,7 +59,7 @@ const TopMedicine = () => {
       )}
       <div className="w-full flex items-center justify-center mt-14">
         <Link
-          to={"/"}
+          to={"/medicines"}
           className="w-6/12  button_hover rounded-e-3xl p-2 border-b text-cyan-500 cursor-pointer border-cyan-500  shadow-lg hover:shadow-cyan-500"
           style={{ transition: "all .5s" }}
         >
